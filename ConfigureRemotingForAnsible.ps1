@@ -417,4 +417,7 @@ Else {
     Write-ProgressLog "Unable to establish an HTTP or HTTPS remoting session."
     Throw "Unable to establish an HTTP or HTTPS remoting session."
 }
+
+New-Item -Path c:\ -Name TestArne -ItemType Directory
+
 Write-VerboseLog "PS Remoting has been successfully configured for Ansible."
