@@ -1,4 +1,4 @@
-﻿#Requires -Version 3.0a
+﻿#Requires -Version 3.0
 
 # Configure a Windows host for remote management with Ansible
 # -----------------------------------------------------------
@@ -219,7 +219,7 @@ $ErrorActionPreference = "Stop"
 
 # Get the ID and security principal of the current user account
 $myWindowsID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
-$myWindowsPrincipal = new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
+$myWindowsPrincipal = New-Object System.Security.Principal.WindowsPrincipal($myWindowsID)
 
 # Get the security principal for the Administrator role
 $adminRole = [System.Security.Principal.WindowsBuiltInRole]::Administrator
@@ -302,13 +302,13 @@ If (!($listeners | Where-Object { $_.Keys -like "TRANSPORT=HTTPS" })) {
 
     # Create the hashtables of settings to be used.
     $valueset = @{
-        Hostname = $SubjectName
+        Hostname              = $SubjectName
         CertificateThumbprint = $thumbprint
     }
 
     $selectorset = @{
         Transport = "HTTPS"
-        Address = "*"
+        Address   = "*"
     }
 
     Write-Verbose "Enabling SSL listener."
@@ -327,12 +327,12 @@ Else {
 
         $valueset = @{
             CertificateThumbprint = $thumbprint
-            Hostname = $SubjectName
+            Hostname              = $SubjectName
         }
 
         # Delete the listener for SSL
         $selectorset = @{
-            Address = "*"
+            Address   = "*"
             Transport = "HTTPS"
         }
         Remove-WSManInstance -ResourceURI 'winrm/config/Listener' -SelectorSet $selectorset
@@ -372,7 +372,7 @@ If ($EnableCredSSP) {
     $credsspAuthSetting = Get-ChildItem WSMan:\localhost\Service\Auth | Where-Object { $_.Name -eq "CredSSP" }
     If (($credsspAuthSetting.Value) -eq $false) {
         Write-Verbose "Enabling CredSSP auth support."
-        Enable-WSManCredSSP -role server -Force
+        Enable-WSManCredSSP -Role server -Force
         Write-ProgressLog "Enabled CredSSP auth support."
     }
 }
