@@ -1,4 +1,4 @@
-﻿#Requires -Version 3.0
+﻿#Requires -Version 3.0a
 
 # Configure a Windows host for remote management with Ansible
 # -----------------------------------------------------------
